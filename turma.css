@@ -1,0 +1,40 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+.card-body {
+  position: relative;
+}
+
+.user-icon {
+  z-index: 20;
+  font-size: 36px;
+}
+
+.card-img-bottom {
+  height: auto;
+  width: 100%;
+}
+
+.nav-link {
+  width: 100px;
+  text-align: center;
+}
+
+.fotoProfessor {
+  height: 60px;
+  border-radius: 12px;
+  margin-right: 5px;
+}
+
+.rodape {
+  background-color: #eee;
+  padding: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.logo {
+  width: 70px;
+}
