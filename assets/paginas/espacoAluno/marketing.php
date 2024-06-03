@@ -8,10 +8,10 @@
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         />
-        <link rel="stylesheet" href="turma.css" />
+        <link rel="stylesheet" href="../../turma.css" />
         <link
             rel="shortcut icon"
-            href="assets/img/corvo-logo.ico"
+            href="../../assets/img/corvo-logo.ico"
             type="image/x-icon"
         />
     </head>
@@ -23,7 +23,7 @@
             <div class="logo">
                 <a href="/">
                     <img
-                        src="img/corvo-logo.png"
+                        src="../../img/corvo-logo.png"
                         width="70px"
                         alt="logo Corvo"
                         class="img-fluid"
@@ -71,24 +71,18 @@
             </nav>
 
             <div class="row">
-                <div class="col-md-4 mb-4">
+                <div class="col-3 mb-4">
                     <div class="card">
                         <div class="card-body bg-light">
-                            <p></p>
+                            <h6>Atividades:</h6>
+                            <p class="descricao">Não há atividades para a próxima semana</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
+                <div class="col-9 mb-4">
                     <div class="card">
                         <div class="card-body bg-light">
-                            <!-- Content for the second column -->
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="card-body bg-light">
-                            <!-- Content for the third column -->
+                            <p>Atividade 1: Postar cetifcado de conclusão de curso (3 pontos)</p>
                         </div>
                     </div>
                 </div>
