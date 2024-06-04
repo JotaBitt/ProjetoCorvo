@@ -1,10 +1,13 @@
 <?php
-    
+    $dataAula = '2024-04-12';
+    $dataAula2 = '2024-04-14';
+    $dataAula3 = '2024-04-20';
+    $dataAula4 = '2024-04-22';
 
-    $notaAv1 = 8.0;
-    $notaAv2 = 7.0;
-    $notaAvs = '-';
-    $notaAvf = '-';
+    $faltaAula = 0;
+    $faltaAula2 = 1;
+    $faltaAula3 = 2;
+    $faltaAula4 = 0;
     ?>
 
 <!doctype html>
@@ -69,31 +72,38 @@
                         <a class="nav-link btn btn-outline-primary mx-1" href="marketing.php"
                             >Mural</a
                         >
-                        <a class="nav-link btn btn-primary mx-1" href="notas.php"
+                        <a class="nav-link btn btn-outline-primary mx-1" href="notas.php"
                             >Notas</a
                         >
-                        <a class="nav-link btn btn-outline-primary mx-1" href="presenca.php"
+                        <a class="nav-link btn btn-primary mx-1" href="presenca.php"
                             >Presença</a
                         >
                     </nav>
 
                     <table class="table table-dark table-hover">
                         <thead>
-                            <th>AV1</th>
-                            <th>AV2</th>
-                            <th>AVS</th>
-                            <th>AVF</th>
+                            <th>Data da aula</th>
+                            <th>Falta</th>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><?php echo $notaAv1 ?></td>
-                                <td><?php echo $notaAv2 ?></td>
-                                <td><?php echo $notaAvs ?></td>
-                                <td><?php echo $notaAvf ?></td>
+                                <td><?php echo $dataAula ?></td>
+                                <td><?php echo $faltaAula ?></td>
+                            </tr>
+                            <tr>
+                                <td><?php echo $dataAula2 ?></td>
+                                <td><?php echo $faltaAula2 ?></td>
+                            </tr>
+                            <tr>
+                                <td><?php echo $dataAula3 ?></td>
+                                <td><?php echo $faltaAula3 ?></td>
+                            </tr>
+                            <tr>
+                                <td><?php echo $dataAula4 ?></td>
+                                <td><?php echo $faltaAula4 ?></td>
                             </tr>
                         </tbody>
                     </table>
-                    <div class="espaco"></div>
                 </main>
 
                 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -103,7 +113,7 @@
                     crossorigin="anonymous"
                 ></script>
                 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-                <footer class="rodape espaco">
+                <footer class="rodape">
                     &copy; Copyright 2024 Todos os direitos reservados à Jota's Corp
                 </footer>
             </body>

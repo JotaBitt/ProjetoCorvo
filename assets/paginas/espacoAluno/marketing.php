@@ -1,3 +1,10 @@
+<?php
+    $ativ1 = 'Atividade 1: Postar certificado de conclusão de curso (3 pontos)';
+    $ativ2 = 'Atividade 2: Realizar a conexão com o Banco de dados (2 pontos)';
+    $ativ3 = 'Atividade 3: Dia da inovação, apresentar sobre um tema que você goste (1 ponto)';
+
+?>
+
 <!doctype html>
 <html lang="pt-BR">
     <head>
@@ -51,7 +58,7 @@
                     <h2 class="card-title">Marketing Digital</h2>
                     <img
                         class="fotoProfessor"
-                        src="img/vegetti.png"
+                        src="../../img/vegetti.png"
                         alt="foto professor"
                     />
                     <span>Pablo Vegetti</span>
@@ -59,13 +66,13 @@
             </div>
 
             <nav class="nav justify-content-center mb-4">
-                <a class="nav-link btn btn-outline-primary mx-1" href="#"
+                <a class="nav-link btn btn-primary mx-1" href="marketing.php"
                     >Mural</a
                 >
-                <a class="nav-link btn btn-outline-primary mx-1" href="#"
+                <a class="nav-link btn btn-outline-primary mx-1" href="notas.php"
                     >Notas</a
                 >
-                <a class="nav-link btn btn-outline-primary mx-1" href="#"
+                <a class="nav-link btn btn-outline-primary mx-1" href="presenca.php"
                     >Presença</a
                 >
             </nav>
@@ -82,7 +89,13 @@
                 <div class="col-9 mb-4">
                     <div class="card">
                         <div class="card-body bg-light">
-                            <p>Atividade 1: Postar cetifcado de conclusão de curso (3 pontos)</p>
+                            <p><?php echo $ativ1 ?></p>
+                        </div>
+                        <div class="card-body bg-light">
+                            <p><?php echo $ativ2 ?></p>
+                        </div>
+                        <div class="card-body bg-light">
+                            <p><?php echo $ativ3 ?></p>
                         </div>
                     </div>
                 </div>

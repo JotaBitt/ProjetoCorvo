@@ -76,7 +76,7 @@ include 'session.php';
           <div
             class="card h-75 w-100 text-white p-3"
             style="
-              background-image: url(/assets/cards/marketing-digital.png);
+              background-image: url(./assets/cards/marketing-digital.png);
               background-repeat: no-repeat;
               background-size: cover;
             "
@@ -84,7 +84,7 @@ include 'session.php';
             
             <div class="card-body position-relative">
               <div class="fotoProf">
-                <img src="img/vegetti.png" alt="foto professor"/>
+                <img src="./img/vegetti.png" alt="foto professor"/>
                 <span class="nomeProfessor">Pablo Vegetti</span>
               </div>
                 
@@ -107,7 +107,7 @@ include 'session.php';
           <div
             class="card h-75 w-100 text-white mb-3 p-3 px-4"
             style="
-              background-image: url(/assets/cards/libras-basico.png);
+              background-image: url(./assets/cards/libras-basico.png);
               background-repeat: no-repeat;
               background-size: cover;
             "
@@ -130,7 +130,7 @@ include 'session.php';
           <div
             class="card h-75 w-100 text-white mb-3 p-3 px-4"
             style="
-              background-image: url(/assets/cards/programacao-java.png);
+              background-image: url(./assets/cards/programacao-java.png);
               background-repeat: no-repeat;
               background-size: cover;
             "

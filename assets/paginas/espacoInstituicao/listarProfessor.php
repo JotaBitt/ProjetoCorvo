@@ -7,7 +7,7 @@
    if ($conn->connect_error) {
       die("Conexao falhou, avise o administrador do sistema");
    }
-   $comandoSQL = "SELECT * from `corvo_aluno`";
+   $comandoSQL = "SELECT * from `corvo_professor`";
    $resultado = $conn->query($comandoSQL);
    $arrPerguntas = array();  // Declare $arrPerguntas here
    $i = 0;
