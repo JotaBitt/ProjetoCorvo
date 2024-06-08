@@ -1,14 +1,47 @@
 <?php
-    $dataAula = '2024-04-12';
-    $dataAula2 = '2024-04-14';
-    $dataAula3 = '2024-04-20';
-    $dataAula4 = '2024-04-22';
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "projeto-corvo";
+$id = 4; // ID do aluno que você quer buscar
 
-    $faltaAula = 0;
-    $faltaAula2 = 1;
-    $faltaAula3 = 2;
-    $faltaAula4 = 0;
-    ?>
+try {
+    // Criar conexão PDO
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    
+    // Configurar PDO para lançar exceções em caso de erro
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    // Preparar a consulta SQL
+    $sql = "SELECT aula, presenca FROM corvo_presencas WHERE id = :id";
+    $stmt = $conn->prepare($sql);
+    
+    // Ligar parâmetros
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    
+    // Executar a consulta
+    $stmt->execute();
+    
+    // Pegar todos os resultados
+    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if ($resultados) {
+        foreach ($resultados as $resultado) {
+            $dataAula = $resultado['aula']; 
+            $faltaAula = $resultado['presenca'];
+        }
+    } else {
+        echo "Nenhum resultado encontrado para o aluno com ID $id.";
+    }
+}
+catch(PDOException $e) {
+    echo "Conexão falhou: " . $e->getMessage();
+}
+
+// Fechar a conexão
+$conn = null;
+
+?>
 
 <!doctype html>
 <html lang="pt-BR">
@@ -89,18 +122,6 @@
                             <tr>
                                 <td><?php echo $dataAula ?></td>
                                 <td><?php echo $faltaAula ?></td>
-                            </tr>
-                            <tr>
-                                <td><?php echo $dataAula2 ?></td>
-                                <td><?php echo $faltaAula2 ?></td>
-                            </tr>
-                            <tr>
-                                <td><?php echo $dataAula3 ?></td>
-                                <td><?php echo $faltaAula3 ?></td>
-                            </tr>
-                            <tr>
-                                <td><?php echo $dataAula4 ?></td>
-                                <td><?php echo $faltaAula4 ?></td>
                             </tr>
                         </tbody>
                     </table>

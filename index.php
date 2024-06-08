@@ -72,7 +72,7 @@ include 'session.php';
       <hr />
       <div class="row justify-content-center">
         <div class="col-md-4 mb-2">
-          <a href="marketing.php">
+          <a href="assets/paginas/espacoAluno/marketing.php">
           <div
             class="card h-75 w-100 text-white p-3"
             style="

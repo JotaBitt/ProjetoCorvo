@@ -1,15 +1,22 @@
 <?php
 
-$servidor = "localhost";
-$username = "root";
-$senha = "";
-$database = "4ads";
 
+// Conexão com o banco de dados
+$hostDB = "localhost";
+$usuarioDB = "root";
+$senhaDB = "";
+$bancoDB = "projetocorvo";
+
+$link = "http://localhost/projetocorvo-dev";
+
+
+
+// Tentativa de conexão
 try {
-      $conn = new PDO("mysql:host=$servidor;dbname=$database", $username, $senha);
-      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn = new PDO("mysql:host=$hostDB;dbname=$bancoDB", $usuarioDB, $senhaDB);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 } catch (PDOException $e) {
-   echo "ERRO! " . $e->getMessage();
-   exit;
+    echo "Erro ao conectar com o banco de dados: " . $e->getMessage();
+    exit;
 }

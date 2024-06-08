@@ -2,8 +2,8 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "projeto-corvo";
-$id = 1; // ID do aluno que você quer buscar
+$dbname = "projetocorvo";
+$id = 4; // ID do aluno que você quer buscar
 
 try {
     // Criar conexão PDO
@@ -13,7 +13,7 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     // Preparar a consulta SQL
-    $sql = "SELECT atividade, nota FROM corvo_notas WHERE id = :id";
+    $sql = "SELECT aula, presenca FROM corvo_presencas WHERE id = :id";
     $stmt = $conn->prepare($sql);
     
     // Ligar parâmetros
@@ -27,9 +27,8 @@ try {
 
     if ($resultados) {
         foreach ($resultados as $resultado) {
-            $atividade = $resultado['atividade']; 
-            $nota = $resultado['nota'];
-            $media = 0;
+            $dataAula = $resultado['aula']; 
+            $faltaAula = $resultado['presenca'];
         }
     } else {
         echo "Nenhum resultado encontrado para o aluno com ID $id.";
@@ -41,8 +40,8 @@ catch(PDOException $e) {
 
 // Fechar a conexão
 $conn = null;
-?>
 
+?>
 
 <!doctype html>
 <html lang="pt-BR">
@@ -106,29 +105,26 @@ $conn = null;
                         <a class="nav-link btn btn-outline-primary mx-1" href="marketing.php"
                             >Mural</a
                         >
-                        <a class="nav-link btn btn-primary mx-1" href="notas.php"
+                        <a class="nav-link btn btn-outline-primary mx-1" href="notas.php"
                             >Notas</a
                         >
-                        <a class="nav-link btn btn-outline-primary mx-1" href="presenca.php"
+                        <a class="nav-link btn btn-primary mx-1" href="presenca.php"
                             >Presença</a
                         >
                     </nav>
 
                     <table class="table table-dark table-hover">
                         <thead>
-                            <th>Atividade</th>
-                            <th>Nota</th>
-                            <th>Media</th>
+                            <th>Data da aula</th>
+                            <th>Falta</th>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><?php echo $atividade ?></td>
-                                <td><?php echo $nota ?></td>
-                                <td><?php echo $media ?></td>
+                                <td><?php echo $dataAula ?></td>
+                                <td><?php echo $faltaAula ?></td>
                             </tr>
                         </tbody>
                     </table>
-                    <div class="espaco"></div>
                 </main>
 
                 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -138,7 +134,7 @@ $conn = null;
                     crossorigin="anonymous"
                 ></script>
                 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-                <footer class="rodape espaco">
+                <footer class="rodape">
                     &copy; Copyright 2024 Todos os direitos reservados à Jota's Corp
                 </footer>
             </body>

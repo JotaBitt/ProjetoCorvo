@@ -22,7 +22,7 @@ include '../../session.php';
       left: 0;
     }
   </style>
-  
+
       <script>
     function listarProfessores() {
 
@@ -74,6 +74,7 @@ include '../../session.php';
       let emailAd = document.getElementById("emailAd").value;
       let telefoneAd = document.getElementById("telefoneAd").value;
       let data_nascimentoAd = document.getElementById("data_nascimentoAd").value;
+      let data_contratacaoAd = document.getElementById("data_contratacaoAd").value;
 
       let xmlhttp = new XMLHttpRequest();
       console.log("1");
@@ -90,7 +91,7 @@ include '../../session.php';
       console.log("4");
       xmlhttp.open("POST", "adicionarProfessor.php");
       xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xmlhttp.send("&cpf=" + cpfAd + "&nome=" + nomeAd + "&matricula=" + matriculaAd + "&email=" + emailAd + "&telefone=" + telefoneAd + "&data_nascimento=" + data_nascimentoAd);
+      xmlhttp.send("&cpf=" + cpfAd + "&nome=" + nomeAd + "&matricula=" + matriculaAd + "&email=" + emailAd + "&telefone=" + telefoneAd + "&data_nascimento=" + data_nascimentoAd + "&data_contratacao=" + data_contratacaoAd);
       console.log("Enviado");
 
       document.getElementById("msg").innerHTML = "Adicionado";
@@ -100,7 +101,7 @@ include '../../session.php';
 
     }
 
-    function exibirFormularioAlterar(cpf, nome, matricula, email, telefone, data_nascimento){
+    function exibirFormularioAlterar(cpf, nome, matricula, email, telefone, data_nascimento, data_contratacao){
 
       document.getElementById("formAlterar").style.display = "block";
 
@@ -110,6 +111,7 @@ include '../../session.php';
       document.getElementById("email").value = email;
       document.getElementById("telefone").value = telefone;
       document.getElementById("data_nascimento").value = data_nascimento;
+      document.getElementById("data_contratacao").value = data_contratacao;
     }
 
     function excluirProfessores(cpf2){
@@ -134,9 +136,12 @@ include '../../session.php';
       console.log("Enviado");
 
       document.getElementById("msg").innerHTML = "Excluido";
+
+      
       listarProfessores();
 
     }
+
 
 
     function CriarCabecalhoTabela(){
@@ -170,12 +175,16 @@ include '../../session.php';
       tr.appendChild(th6);
 
       let th7 = document.createElement("th");
-      th7.textContent = "Alterar";
+      th7.textContent = "Data de Contratação";
       tr.appendChild(th7);
 
       let th8 = document.createElement("th");
-      th8.textContent = "Excluir";
+      th8.textContent = "Alterar";
       tr.appendChild(th8);
+
+      let th9 = document.createElement("th");
+      th9.textContent = "Excluir";
+      tr.appendChild(th9);
 
 
       table.appendChild(tr);
@@ -218,28 +227,36 @@ include '../../session.php';
     td6.appendChild(textnode);
     tr.appendChild(td6); 
 
-    let td7 = document.createElement("td");
+    let td7 = document.createElement("td"); 
+      textnode = document.createTextNode(pobjReturnJSON.data_contratacao);
+      td7.appendChild(textnode);  
+      tr.appendChild(td7); 
+
+
+    let td8 = document.createElement("td");
     let btnAlterar = document.createElement("button");
     btnAlterar.textContent = "Alterar Dados";
 
-    let td8 = document.createElement("td");
+    let td9 = document.createElement("td");
     let btnExcluir = document.createElement("button");
     btnExcluir.textContent = "Excluir";
 
     
     btnAlterar.addEventListener("click", function(){
-    exibirFormularioAlterar(pobjReturnJSON.cpf, pobjReturnJSON.nome, pobjReturnJSON.matricula, pobjReturnJSON.email, pobjReturnJSON.telefone,  pobjReturnJSON.data_nascimento);
+    exibirFormularioAlterar(pobjReturnJSON.cpf, pobjReturnJSON.nome, pobjReturnJSON.matricula, pobjReturnJSON.email, pobjReturnJSON.telefone,  pobjReturnJSON.data_nascimento, pobjReturnJSON.data_contratacao);
     });
-    td7.appendChild(btnAlterar);
-    tr.appendChild(td7);
+    td8.appendChild(btnAlterar);
+    tr.appendChild(td8);
 
     btnExcluir.addEventListener("click", function(){
     excluirProfessores(pobjReturnJSON.cpf);
     });
-    td8.appendChild(btnExcluir);
-    tr.appendChild(td8);
+    td9.appendChild(btnExcluir);
+    tr.appendChild(td9);
 
     }
+
+    
 
 
     function alterarDados(){
@@ -255,6 +272,7 @@ include '../../session.php';
       let email = document.getElementById("email").value;
       let telefone = document.getElementById("telefone").value;
       let data_nascimento = document.getElementById("data_nascimento").value;
+      let data_contratacao = document.getElementById("data_contratacao").value;
 
       let xmlhttp = new XMLHttpRequest();
       console.log("1");
@@ -269,10 +287,12 @@ include '../../session.php';
           console.log("Requisicao falhou: " + this.status);
       }
       console.log("4");
-      xmlhttp.open("POST", "alterarDados.php");
+      xmlhttp.open("POST", "alterarDadosProfessor.php");
       xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xmlhttp.send("&cpf=" + cpf + "&nome=" + nome + "&matricula=" + matricula + "&email=" + email + "&telefone=" + telefone + "&data_nascimento=" + data_nascimento);
+      xmlhttp.send("&cpf=" + cpf + "&nome=" + nome + "&matricula=" + matricula + "&email=" + email + "&telefone=" + telefone + "&data_nascimento=" + data_nascimento + "&data_contratacao=" + data_contratacao);
       console.log("Enviado");
+
+      console.log(data_contratacao);
 
       document.getElementById("msg").innerHTML = "Alterado";
 
@@ -316,13 +336,7 @@ include '../../session.php';
         <div class="container my-3">
             <!-- Menu de Opções -->
 
-            <!-- Tabela de Notas -->
-            <div class="container my-3">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Pesquisar professor"
-                        aria-label="Pesquisar professor" aria-describedby="button-addon2">
-                    <button class="btn btn-secondary" type="button" id="button-addon2">Pesquisar</button>
-               </div>
+  
                 
 <h1>Listar Professores</h1>
 
@@ -347,6 +361,7 @@ include '../../session.php';
   Email: <input type="text" name="email" id="email"><br><br>
   Telefone: <input type="text" name="telefone" id="telefone"><br><br>
   Data de nascimento: <input type="date" name="data_nascimento" id="data_nascimento"><br><br>
+  Data de contratação: <input type="date" name="data_contratacao" id="data_contratacao"><br><br>
 
     <input type="button" value="Alterar" id="Alterar" onclick="alterarDados()">
   </form>
@@ -359,14 +374,17 @@ include '../../session.php';
     Email: <input type="text" name="emailAd" id="emailAd"><br><br>
     Telefone: <input type="text" name="telefoneAd" id="telefoneAd"><br><br>
     Data de nascimento: <input type="date" name="data_nascimentoAd" id="data_nascimentoAd"><br><br>
+    Data de contratação: <input type="date" name="data_contratacaoAd" id="data_contratacaoAd"><br><br>
 
     <input type="button" value="inserir" id="inserir" onclick="adicionarProfessor()">
+
   </form>
         </div>
     </div>
   </main>
   <!-- Scripts -->
   <script src="https://kit.fontawesome.com/387cf5e4a4.js" crossorigin="anonymous"></script>
+    
     <footer class="footer mt-auto py-3 text-center bg-dark text-white mh-30">
          <div class="container">
              <span>Copyright &copy; Todos os direitos reservados a Jota's Corp</span>

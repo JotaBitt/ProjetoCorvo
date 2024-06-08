@@ -12,6 +12,7 @@ include '../../session.php';
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Corvo - Gerenciamento</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <!-- <link rel="stylesheet" href="style.css" /> -->
   <!-- Favicon -->
   <link rel="shortcut icon" href="../../assets/img/corvo-logo.ico" type="image/x-icon" />
   <style>
@@ -22,13 +23,124 @@ include '../../session.php';
     }
   </style>
 
-      <script>
-    function listarTurmas() {
+</head>
+
+<body class="bg-light">
+  <header class="d-flex justify-content-between align-items-center p-1 px-3 bg-white border-bottom"><a
+      href="index.html">
+      <div class="logo">
+        <img src="../../img/corvo-logo.png" width="70px" alt="logo Corvo" class="img-fluid" />
+      </div>
+    </a>
+    <div class="d-none">
+      <a href="login.php">
+        <span>Login</span>
+      </a>
+      <a href="Cadastro.html">
+        <span>Cadastre-se </span>
+      </a>
+    </div>
+    <div class="user-icon">
+      <i class="fas fa-user-circle" style="font-size: 36px"></i>
+    </div>
+  </header>
+  <main class="container text-center py-4">
+    <div class="card card-body">
+
+        <div class="container my-3">
+            <h2 class="card-title">Turmas</h2>
+            <p class="card-text">Gerencie os turmas de sua unidade</p>
+        </div>
+        <!-- Menu de Opções -->
+
+        <!-- Tabela de Notas -->
+        <!-- <div class="container my-3"> -->
+            <!-- Menu de Opções -->
+
+            <!-- Tabela de Notas -->
+            <!-- <div class="container my-3">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Pesquisar turma"
+                        aria-label="Pesquisar turma" aria-describedby="button-addon2">
+                    <button class="btn btn-secondary" type="button" id="button-addon2">Pesquisar</button>
+               </div>  -->
+                
+                
+<h1>Listar Usuarios </h1>
+
+<form action="javascript:listarUsuarios();" method="POST" id="formSiglaCurso" style="display:block;">
+
+    Digite a Sigla do Curso: <input type="text" name="siglaCurso" id="siglaCurso"><br><br>
+
+    <button>Listar Usuarios </button>
+
+</form>
+
+
+<!-- <button onclick="listarUsuarios()">uaua</button>
+<br><br>
+<button onclick="exibirAdicionar()">Adicionar Turmas</button>
+<br><br> -->
+
+<table id="tabela" class="table table-striped">
+  
+</table>
+<h4 id="msg"></h4>
+<br>
+
+  <!-- <form action="" method="POST" id="formAlterar" style="display: none;">
+  
+  <input type="hidden" name="cpf" id="cpf">
+
+  Nome: <input type="text" name="nome" id="nome"><br><br>
+  Matricula: <input type="text" name="matricula" id="matricula"><br><br>
+  Email: <input type="text" name="email" id="email"><br><br>
+  Telefone: <input type="text" name="telefone" id="telefone"><br><br>
+  Data de nascimento: <input type="date" name="data_nascimento" id="data_nascimento"><br><br>
+
+    <input type="button" value="Alterar" id="Alterar" onclick="alterarDados()">
+  </form>
+
+  <form action="" method="POST" id="formAdicionar" style="display: none;">
+
+    Nome: <input type="text" name="nome" id="nome"><br><br>
+    Matricula: <input type="text" name="matricula" id="matricula"><br><br>
+    Sigla Curso: <input type="text" name="codTurma" id="codTurma"><br><br>
+    Sigla Turma: <input type="text" name="codSigla" id="codSigla"><br><br>
+    Rank: <br>
+          <input type="radio" name="rank" id="Professor" value="Professor">
+            <label for="Professor">Professor</label><br>
+          <input type="radio" name="rank" id="Aluno" value="Aluno">
+            <label for="Aluno">Aluno</label><br>
+
+
+    <input type="button" value="inserir" id="inserir" onclick="adicionarTurma()"> -->
+
+    
+  </form>
+
+
+        </div>
+    </div>
+  </main>
+
+  <footer class="footer mt-auto py-3 text-center bg-dark text-white mh-30">
+         <div class="container">
+             <span>Copyright &copy; Todos os direitos reservados a Jota's Corp</span>
+         </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://kit.fontawesome.com/387cf5e4a4.js" crossorigin="anonymous"></script>
+
+    <script>
+    function listarUsuarios() {
+
+      let siglaCurso = document.getElementById("siglaCurso").value;
 
       document.getElementById("tabela").innerHTML = "";
       document.getElementById("tabela").style.display = "inline-block";
-      document.getElementById("formAlterar").style.display = "none";
-      document.getElementById("formAdicionar").style.display = "none";
+      document.getElementById("formSiglaCurso").style.display = "none";
       
       let xmlhttp = new XMLHttpRequest();
       console.log("1");
@@ -49,9 +161,9 @@ include '../../session.php';
           console.log("Requisicao falhou: " + this.status);
       }
       console.log("4");
-      xmlhttp.open("POST", "listarTurma.php");
+      xmlhttp.open("POST", "listarUsuariosCurso.php");
       xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xmlhttp.send();
+      xmlhttp.send("&siglaCurso=" + siglaCurso);
       console.log("enviei request get");
       console.log("5");
       CriarCabecalhoTabela();
@@ -65,9 +177,7 @@ include '../../session.php';
       
     }
 
-    function adicionarTurma(){
-
-      let matriculaAd = document.getElementById("matriculaAd").value;
+    function adicionarTurma(matricula, siglaTurma, nome, rank, siglaCurso){
 
       let xmlhttp = new XMLHttpRequest();
       console.log("1");
@@ -82,15 +192,16 @@ include '../../session.php';
           console.log("Requisicao falhou: " + this.status);
       }
       console.log("4");
-      xmlhttp.open("POST", "adicionarTurma.php");
+      xmlhttp.open("POST", "adicionarAlunoTurma.php");
       xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xmlhttp.send("&matricula=" + matriculaAd);
+      
+      xmlhttp.send("&matricula=" + matricula + "&nome=" + nome + "&siglaTurma=" + siglaTurma +"&rank=" + rank + "&siglaCurso=" + siglaCurso);
       console.log("Enviado");
 
       document.getElementById("msg").innerHTML = "Adicionado";
 
       document.getElementById("formAdicionar").style.display = "none";
-      listarTurmas();
+      listarUsuarios();
 
     }
 
@@ -128,7 +239,7 @@ include '../../session.php';
       console.log("Enviado");
 
       document.getElementById("msg").innerHTML = "Excluido";
-      listarTurmas();
+      listarUsuarios();
 
     }
 
@@ -148,29 +259,16 @@ include '../../session.php';
       tr.appendChild(th2);
 
       let th3 = document.createElement("th");
-      th3.textContent = "cpf";
+      th3.textContent = "rank";
       tr.appendChild(th3);
 
       let th4 = document.createElement("th");
-      th4.textContent = "email";
+      th4.textContent = "siglaCurso";
       tr.appendChild(th4);
 
-      let th5 = document.createElement("th");
-      th5.textContent = "telefone";
-      tr.appendChild(th5);
-
-      let th6 = document.createElement("th");
-      th6.textContent = "data_nascimento";
-      tr.appendChild(th6);
-
       let th7 = document.createElement("th");
-      th7.textContent = "Alterar";
+      th7.textContent = "Adicionar";
       tr.appendChild(th7);
-
-      let th8 = document.createElement("th");
-      th8.textContent = "Excluir";
-      tr.appendChild(th8);
-
 
       table.appendChild(tr);
 
@@ -193,45 +291,35 @@ include '../../session.php';
     tr.appendChild(td2); 
 
     let td3 = document.createElement("td"); 
-    textnode = document.createTextNode(pobjReturnJSON.cpf);
+    textnode = document.createTextNode(pobjReturnJSON.rank);
     td3.appendChild(textnode);
     tr.appendChild(td3); 
 
     let td4 = document.createElement("td"); 
-    textnode = document.createTextNode(pobjReturnJSON.email);
+    textnode = document.createTextNode(pobjReturnJSON.siglaCurso);
     td4.appendChild(textnode);
     tr.appendChild(td4); 
 
-    let td5 = document.createElement("td"); 
-    textnode = document.createTextNode(pobjReturnJSON.telefone);
-    td5.appendChild(textnode);
-    tr.appendChild(td5); 
-
-    let td6 = document.createElement("td"); 
-    textnode = document.createTextNode(pobjReturnJSON.data_nascimento);
-    td6.appendChild(textnode);
-    tr.appendChild(td6); 
 
     let td7 = document.createElement("td");
-    let btnAlterar = document.createElement("button");
-    btnAlterar.textContent = "Alterar Dados";
+      
+    let textbox = document.createElement("input");
+    textbox.type = "text";
+    textbox.id = "inputTextBox";
+    td7.appendChild(textbox);
 
-    let td8 = document.createElement("td");
-    let btnExcluir = document.createElement("button");
-    btnExcluir.textContent = "Excluir";
+   
+    let btnAdicionar = document.createElement("button");
+    btnAdicionar.textContent = "Adicionar";
 
-    
-    btnAlterar.addEventListener("click", function(){
-    exibirFormularioAlterar(pobjReturnJSON.cpf, pobjReturnJSON.nome, pobjReturnJSON.matricula, pobjReturnJSON.email, pobjReturnJSON.telefone,  pobjReturnJSON.data_nascimento);
+    btnAdicionar.addEventListener("click", function(){
+
+      let siglaTurma = textbox.value;
+      adicionarTurma(pobjReturnJSON.matricula, siglaTurma, pobjReturnJSON.nome, pobjReturnJSON.rank, pobjReturnJSON.siglaCurso);
     });
-    td7.appendChild(btnAlterar);
+    td7.appendChild(btnAdicionar);
     tr.appendChild(td7);
 
-    btnExcluir.addEventListener("click", function(){
-    excluirTurmas(pobjReturnJSON.cpf);
-    });
-    td8.appendChild(btnExcluir);
-    tr.appendChild(td8);
 
     }
 
@@ -270,102 +358,10 @@ include '../../session.php';
 
       document.getElementById("msg").innerHTML = "Alterado";
 
-      listarTurmas();
+      listarUsuarios();
 
     }
 
   </script>
-
-</head>
-
-<body class="bg-light">
-  <header class="d-flex justify-content-between align-items-center p-1 px-3 bg-white border-bottom"><a
-      href="index.html">
-      <div class="logo">
-        <img src="../../img/corvo-logo.png" width="70px" alt="logo Corvo" class="img-fluid" />
-      </div>
-    </a>
-    <div class="d-none">
-      <a href="login.php">
-        <span>Login</span>
-      </a>
-      <a href="Cadastro.html">
-        <span>Cadastre-se </span>
-      </a>
-    </div>
-    <div class="user-icon">
-      <i class="fas fa-user-circle" style="font-size: 36px"></i>
-    </div>
-  </header>
-  <main class="container text-center py-4">
-    <div class="card card-body">
-
-        <div class="container my-3">
-            <h2 class="card-title">Turmas</h2>
-            <p class="card-text">Gerencie os turmas de sua unidade</p>
-        </div>
-        <!-- Menu de Opções -->
-
-        <!-- Tabela de Notas -->
-        <div class="container my-3">
-            <!-- Menu de Opções -->
-
-            <!-- Tabela de Notas -->
-            <div class="container my-3">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Pesquisar turma"
-                        aria-label="Pesquisar turma" aria-describedby="button-addon2">
-                    <button class="btn btn-secondary" type="button" id="button-addon2">Pesquisar</button>
-               </div>
-                
-<h1>Listar Turmas</h1>
-
-
-<button onclick="listarTurmas()">Listar Todos os Candidados</button>
-<br><br>
-<button onclick="exibirAdicionar()">Adicionar Turmas</button>
-<br><br>
-
-<table id="tabela" class="table table-striped">
-  
-</table>
-<h4 id="msg"></h4>
-<br>
-
-  <form action="" method="POST" id="formAlterar" style="display: none;">
-  
-  <input type="hidden" name="cpf" id="cpf">
-
-  Nome: <input type="text" name="nome" id="nome"><br><br>
-  Matricula: <input type="text" name="matricula" id="matricula"><br><br>
-  Email: <input type="text" name="email" id="email"><br><br>
-  Telefone: <input type="text" name="telefone" id="telefone"><br><br>
-  Data de nascimento: <input type="date" name="data_nascimento" id="data_nascimento"><br><br>
-
-    <input type="button" value="Alterar" id="Alterar" onclick="alterarDados()">
-  </form>
-
-  <form action="" method="POST" id="formAdicionar" style="display: none;">
-
-    Nome: <input type="text" name="nomeAd" id="nomeAd"><br><br>
-    CPF: <input type="text" name="cpfAd" id="cpfAd"><br><br>
-    Matricula: <input type="text" name="matriculaAd" id="matriculaAd"><br><br>
-    Email: <input type="text" name="emailAd" id="emailAd"><br><br>
-    Telefone: <input type="text" name="telefoneAd" id="telefoneAd"><br><br>
-    Data de nascimento: <input type="date" name="data_nascimentoAd" id="data_nascimentoAd"><br><br>
-
-    <input type="button" value="inserir" id="inserir" onclick="adicionarTurma()">
-  </form>
-        </div>
-    </div>
-  </main>
-  <!-- Scripts -->
-  <script src="https://kit.fontawesome.com/387cf5e4a4.js" crossorigin="anonymous"></script>
-    
-    <footer class="footer mt-auto py-3 text-center bg-dark text-white mh-30">
-         <div class="container">
-             <span>Copyright &copy; Todos os direitos reservados a Jota's Corp</span>
-         </div>
-    </footer>
 </body>
 </html>

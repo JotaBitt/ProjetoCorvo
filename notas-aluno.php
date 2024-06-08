@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "projeto-corvo";
+$dbname = "projetocorvo";
 $id = 1; // ID do aluno que você quer buscar
 
 try {
@@ -13,7 +13,7 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     // Preparar a consulta SQL
-    $sql = "SELECT atividade, nota FROM corvo_notas WHERE id = :id";
+    $sql = "SELECT atividade, nota FROM corvo_notas WHERE aluno = :id";
     $stmt = $conn->prepare($sql);
     
     // Ligar parâmetros

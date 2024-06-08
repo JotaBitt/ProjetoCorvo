@@ -47,7 +47,7 @@
             <div
                 class="card mb-4 p-5 d-flex justify-content-start align-items-end"
                 style="
-                    background-image: url(/assets/cards/marketing-digital.png);
+                    background-image: url(../../assets/cards/marketing-digital.png);
                     background-position: center;
                     background-repeat: no-repeat;
                     background-size: cover;
