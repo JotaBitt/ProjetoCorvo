@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "daring-research-427316-s0",
+  "private_key_id": "87a9f040353469a2d20f644b187897f3d3721bbc",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC8yG3xkEU5H+Mm\nj7/LSS5UQ1RddIZ2zJeEXXpARBYXdySY+UzkWgExZtFHI3LtWB7ztHNS/tJJNo+D\nHuDy78TTKRHV2MM0RA/DChtzgTDzJmpQqFk86Zwnga451OeU6yTN/EVhmtkd4u/2\n75y6lgOAWgjMYrA5OlaRG70NloE3xGzVUha3y3NzxIkAgXqw4Mr2g6/l+zI7IrVx\nTV7girzczgIG2k57ASd/VfeKScWxEPOONWXQiEcUOc9uStyh+mG4uui3JHktuBNN\nSvikQeFoO3IwOdYXl9jnGjLHu+T3Gc99+D7IcjkgX71XvalkIh1fyOeJmcQ3Ize+\nhwebNRxXAgMBAAECggEAODWvcrkju14QuucbUtKP3lwLzyXGcbH6PVm98Eu1jjgV\n6Ax2xhk8eLKmBnn6Gsxdru+gVOp1v4Hk2kRD82HL55m3a0Z23OWVEdw9Dze81PEv\nv6NYqsfeDG9S6npHl/Ipy8FdATJjikALdimjL3VCRqHIM98AnJGPu/YX5OdWwz0P\nYJYsfLiff19ccyd5izvIfvTLiGb1Aov4Tz5QEme71JZY0SNM7efLU9iKQpHjQTZ5\nsFSm3wLVoA8g9kiHSVl4b4i0rQhm0XqKAEa1Rp2Zb4o2tr7UqrrkHDMXrcrqi15k\ngEwO7X+qXapeZmqkMtimV1XKENONReqLRyDUsyfGaQKBgQD+aMilC5P0UInfa5Vy\nHadS8uaHcGWs5awzCmiuoRouxaj66ULxNOJl8L/f9m9OhzNjdB9WdYrLsCl5kUWR\nt9IwDDZ3/ZpJXfet3uCsLY4M0V6ONLSAGwuhMj3OF4zf7OeCeARfIu6gsKSWPx+g\n+A4WgzusEDmqRhp6kX+MWwl63wKBgQC99poT/zuvcTlkZ4Y2oIXieq3ik+VbwLLr\nE5yMgHygy0futtc74g7CxMbNULiMXNtDBDf7vyvxC2hzIHCh47ZPS/wn+DPHlOhY\nHimuBRD2YDM3tZNeMRUeJIc5vojk9bfmsrsO7VcLcN6NxppCd8hQWuTIueglNGjn\n+Yqzf8QFiQKBgHK08gqgbsRQb+mhi09ZmXDn/hMBFYbgQ0T8I3jhQHnoOyludPVm\nf9GwvAKSDVud0Ai+eca01rDCK+EZJAHwnL93MjPlz2PXD26AuFJJc+vJltWNY/kC\nuLqkeYNr0OPB4BxOWsI+cNNY8cygh3U/grKZ1xTcd/OTCitLYPP6tAqHAoGAU3qL\nOz5ufCrFjdnwoRDpxR0kTO2xXSDRf3yezx+npQGwGrc+3pH46p6Ovqs6bnRf5pN0\nBq18IfFhdTZMSNhIxZAev3HTT2GguRiIOHEBg0PDPjgNCteG8DgdNMMGZZeVuUvR\n6D1kgyKWqrccExmQbb+DyrHn0nG1qDuBOGBtRAECgYAuaOOtYMnKurLEeMI9acq7\nvPyJSBijUK0MWvaYni2r8Cm/yR3UO3eNzF2aArlfNYvd5GVlm/KDV2amVSE0K3+Z\niL0oWv++AuDiFQos2cHHmF1pz7StcXf6kCGGr6GDRc2czDbWtifrh1uuh/YyDvwI\n2xVILORuXbxXGX2FSbyTzQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "sistemacorvo@daring-research-427316-s0.iam.gserviceaccount.com",
+  "client_id": "116400689508815452894",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/sistemacorvo%40daring-research-427316-s0.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

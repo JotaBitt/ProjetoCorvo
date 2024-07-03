@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "projetocorvo";
+$dbname = "4ads";
 $id = 1; // ID do aluno que você quer buscar
 
 try {

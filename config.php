@@ -5,7 +5,7 @@
 $hostDB = "localhost";
 $usuarioDB = "root";
 $senhaDB = "";
-$bancoDB = "projetocorvo";
+$bancoDB = "4ads_v1";
 
 $link = "http://localhost/projetocorvo-dev";
 

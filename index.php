@@ -1,178 +1,143 @@
-<?php 
-
+<?php
 include 'session.php';
 
+// Verificando se é dia, tarde, noite ou madrugada
+date_default_timezone_set('America/Sao_Paulo');
+
+$hora = date('H');
+
+if ($hora >= 6 && $hora < 12) {
+  $hello = "Bom dia,";
+} elseif ($hora >= 12 && $hora < 18) {
+  $hello = "Boa tarde,";
+} elseif ($hora >= 18 && $hora < 24) {
+  $hello = "Boa noite,";
+} else {
+  $hello = "Boa madrugada,";
+}
+
+// Preparar a consulta SQL com JOIN entre as tabelas corvo_usuarios_turma, corvo_cursos e corvo_turmas
+$stmt = $conn->prepare("SELECT *, corvo_turmas.id AS idTurma FROM corvo_usuarios_turma INNER JOIN corvo_cursos ON corvo_usuarios_turma.siglaCurso = corvo_cursos.siglaCurso INNER JOIN corvo_turmas ON corvo_usuarios_turma.siglaTurma = corvo_turmas.siglaTurma WHERE matricula = :matricula");
+
+// Ligar parâmetros
+$stmt->bindParam(':matricula', $_SESSION['matricula']);
+
+// Executar a consulta
+$stmt->execute();
+
+// Pegar todos os resultados
+$usuariosTurma = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Para cada resultado, conectar com as turmas
+foreach ($usuariosTurma as $key => $turma) {
+
+  $stmt = $conn->prepare("SELECT * FROM corvo_usuarios WHERE matricula = :matricula");
+
+  $stmt->bindParam(':matricula', $turma['professor']);
+
+  $stmt->execute();
+
+  $professor = $stmt->fetch();
+
+  $usuariosTurma[$key]["professor"] = $professor['nome'];
+  $usuariosTurma[$key]["idTurma"] = $turma['idTurma'];
+}
+
+$stmt = $conn->prepare("SELECT * FROM corvo_turmas WHERE professor = :professor");
+$stmt->bindParam(":professor", $_SESSION['matricula']);
+$stmt->execute();
+
+$professorTurma = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+foreach ($professorTurma as $key => $turma) {
+
+  $stmt = $conn->prepare("SELECT * FROM corvo_cursos WHERE siglaCurso = :siglaCurso");
+  $stmt->bindParam(":siglaCurso", $turma['siglaCurso']);
+  $stmt->execute();
+
+  $curso = $stmt->fetch();
+
+  $stmt = $conn->prepare("SELECT * FROM corvo_usuarios WHERE matricula = :matricula");
+  $stmt->bindParam(":matricula", $turma['professor']);
+
+  $stmt->execute();
+
+  $professor = $stmt->fetch();
+
+  $curso['professor'] = $professor['nome'];
+  $curso['idTurma'] = $turma['id'];
+
+  array_push($usuariosTurma, $curso);
+}
+
+$stmt = $conn->prepare("SELECT * FROM corvo_usuarios WHERE matricula = :matricula");
+$stmt->bindParam(":matricula", $_SESSION['matricula']);
+$stmt->execute();
+
+
+$usuario = $stmt->fetch();
+
+
+// Fechar a conexão
+$conn = null;
 ?>
 
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Corvo - Início</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <!-- Favicon -->
-    <link
-      rel="shortcut icon"
-      href="assets/img/corvo-logo.ico"
-      type="image/x-icon"
-    />
-    <style>
-      .materia-title {
-        position: relative;
-        bottom: 0;
-        left: 0;
+
+<head>
+  <?php include 'assets/includes/head.php'; ?>
+  <title>Corvo - Início</title>
+  <link rel="stylesheet" href="<?= $link ?>/assets/css/index.css" />
+</head>
+
+<body class="bg-light">
+  <?php include 'assets/includes/header.php'; ?>
+  <main class="container text-center py-4">
+    <h1 class="mb-4"><?= $hello ?> <?= $_SESSION['nome_usuario'] ?></h1>
+    <hr />
+    <div class="row justify-content-center">
+      <?php
+
+      if ($usuariosTurma) {
+        foreach ($usuariosTurma as $key => $turma) {
+
+          if($key % 3 == 0) {
+            echo '<div class="row justify-content-center">';
+          } 
+          echo '<div class="col">';
+          echo '  <a href="'. $link .'/turmas/'.$turma['idTurma'].'">';
+          echo '    <div';
+          echo '      class="card h-75 pr-5 pl-3 py-4 w-100 text-white mb-3"';
+          echo '      style="';
+          echo '        background-image: url('.$turma['background'].');';
+          echo '        background-repeat: no-repeat;';
+          echo '        background-size: cover;';
+          echo '      ">';
+          echo '      <div class="card-body d-flex align-items-left flex-column position-relative">';
+          echo '        <div class="fotoProf d-flex align-items-left">';
+          echo '          <span class="nomeProfessor d-block">'.$turma['professor'].'</span>';
+          echo '        </div>';
+          echo '        <p class="card-title text-left materia-title h4">'.$turma['nome'].'</p>';
+          echo '      </div>';
+          echo '    </div>';
+          echo '  </a>';
+          echo '</div>';
+          
+          if($key % 3 == 2) {
+            echo '</div>';
+          }
+        }
+      } else {
+        echo '<div class="col-12">
+          <p>Você ainda não está matriculado em nenhuma turma.</p>
+        </div>';
       }
 
-      .nomeProfessor {
-        font-size: 13px;
-      }
-
-      .fotoProfessor > img {
-        width: 20px;
-        height: 20px;
-      }
-    </style>
-  </head>
-  <body class="bg-light">
-    <header
-      class="d-flex justify-content-between align-items-center p-1 px-3 bg-white border-bottom"
-    ><a href="index.html">
-          <div class="logo">
-              <img
-                  src="img/corvo-logo.png"
-                  width="70px"
-                  alt="logo Corvo"
-                  class="img-fluid"
-              />
-          </div>
-      </a>
-      <div class="d-none">
-        <a href="login.php">
-          <span>Login</span> 
-        </a>
-        <a href="Cadastro.html"> 
-          <span>Cadastre-se </span>
-        </a>
-      </div>
-      <div class="user-icon">
-        <i class="fas fa-user-circle" style="font-size: 36px"></i>
-      </div>
-    </header>
-    <main class="container text-center py-4">
-      <h1 class="mb-4">Bom dia, José Wilson!</h1>
-      <div class="alert alert-warning p-3" role="alert">
-        ⚠️ Você possui atividades pendentes para serem entregues nesta semana.
-        <a href="#" class="alert-link">Clique aqui para ver.</a>
-      </div>
-      <hr />
-      <div class="row justify-content-center">
-        <div class="col-md-4 mb-2">
-          <a href="assets/paginas/espacoAluno/marketing.php">
-          <div
-            class="card h-75 w-100 text-white p-3"
-            style="
-              background-image: url(./assets/cards/marketing-digital.png);
-              background-repeat: no-repeat;
-              background-size: cover;
-            "
-          >
-            
-            <div class="card-body position-relative">
-              <div class="fotoProf">
-                <img src="./img/vegetti.png" alt="foto professor"/>
-                <span class="nomeProfessor">Pablo Vegetti</span>
-              </div>
-                
-              <h2
-                class="card-title materia-title"
-              >
-                Marketing Digital
-              </h2>
-              <span
-                class="badge badge-danger position-absolute"
-                style="top: -10px; right: -10px; width: 15px"
-                >!</span
-              >
-            </div>
-          </div>
-          </a>
-        </div>
-        <div class="col-md-4 mb-2">
-          
-          <div
-            class="card h-75 w-100 text-white mb-3 p-3 px-4"
-            style="
-              background-image: url(./assets/cards/libras-basico.png);
-              background-repeat: no-repeat;
-              background-size: cover;
-            "
-          >
-            <div class="card-body position-relative">
-              <div class="fotoProf">
-                <img src="img/Edmundo.webp" alt="Edmundo" />
-                <span class="nomeProfessor">Edmundo</span>
-              </div>
-              <h2
-                class="card-title materia-title"
-              >
-                Libras (Básico)
-              </h2>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 mb-2">
-          
-          <div
-            class="card h-75 w-100 text-white mb-3 p-3 px-4"
-            style="
-              background-image: url(./assets/cards/programacao-java.png);
-              background-repeat: no-repeat;
-              background-size: cover;
-            "
-          >
-            <div class="card-body position-relative">
-              <div class="fotoProf">
-                <img src="img/andreBalada.webp" alt="André Balada" />
-                <span class="nomeProfessor">André Balada</span>
-              </div>
-              <h2
-                class="card-title materia-title"
-              >
-                Programação em Java
-              </h2>
-            </div>
-          </div>
-          
-          <!-- <div
-            class="card h-75 w-100 bg-info text-white mb-3 p-3 px-4"
-            style="
-              background-image: url(/assets/cards/libras-basico.png);
-              background-repeat: no-repeat;
-              background-size: cover;
-            "
-          >
-            <div class="card-body">
-              <div class="fotoProf">
-                <img src="img/Edmundo.webp" alt="foto professor" />
-                <span class="nomeProfessor">Edmundo</span>
-              </div>
-              <h2 class="card-title materia-title">Libras (Básico)</h2>
-            </div>
-          </div> -->
-        </div>
-    </main>
-    <!-- Scripts -->
-    <script
-      src="https://kit.fontawesome.com/387cf5e4a4.js"
-      crossorigin="anonymous"
-    ></script>
-    <footer class="rodape">
-            &copy; Copyright 2024 Todos os direitos reservados à Jota's Corp
-    </footer>
-  </body>
+      ?>
+    </div>
+  </main>
+  <!-- Scripts -->
+  <?php require_once $link . '/assets/includes/footer.php'; ?>
+</body>
 </html>
